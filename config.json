@@ -1,0 +1,99 @@
+{
+    "rds_vpc": "",
+    "rds_subnets_ids": [""],
+    "rds_security_group": "",
+
+    "lambda": {
+        "function_name": "SES-Monitor",
+        "sns_trigger_arn": "",
+        "environment_variables": {
+            "DATABASE_NAME": "test-application",
+            "SECRETS_MANAGER_SECRET": "prod/database",
+            "METRIC_NAMESPACE": "MyApplication",
+            "METRIC_NAME": "InvalidEmailCount"
+        }
+    },
+
+    "alarms": [
+        {
+            "name": "WARNING: 5% Email Sends Not In Database",
+            "percent": 5,
+            "description": "Monitoring for greater than or equal to 5% of email sends that are not within your application.",
+            "sns_arn": "",
+            "metric": {
+                "namespace": "MyApplication",
+                "name": "InvalidEmailCount"
+            }
+        },
+        {
+            "name": "ALERT: 10% Email Sends Not In Database",
+            "percent": 10,
+            "description": "Monitoring for greater than or equal to 10% of email sends that are not within your application.",
+            "sns_arn": "",
+            "metric": {
+                "namespace": "MyApplication",
+                "name": "InvalidEmailCount"
+            }
+        },
+        {
+            "name": "WARNING: Daily SES Bounce Count at 5%",
+            "percent": 5,
+            "description": "Daily Bounce Rate is currently at 5%, review bounceback logs and action accordingly.",
+            "sns_arn": "",
+            "metric": {
+                "namespace": "AWS/SES",
+                "name": "Bounce"
+            }
+        },
+        {
+            "name": "ALERT: Daily SES Bounce Count at 10%",
+            "percent": 10,
+            "description": "Daily Bounce Rate is currently at 10%, review bounceback logs and action accordingly.",
+            "sns_arn": "",
+            "metric": {
+                "namespace": "AWS/SES",
+                "name": "Bounce"
+            }
+        },
+        {
+            "name": "WARNING: Daily SES Send Count at 60%",
+            "percent": 60,
+            "description": "Daily SES Limit is currently at 60%, review mail send history, continue to monitor and request a limit increase if required.",
+            "sns_arn": "",
+            "metric": {
+                "namespace": "AWS/SES",
+                "name": "Send"
+            }
+        },
+        {
+            "name": "ALERT: Daily SES Send Count at 80%",
+            "percent": 80,
+            "description": "Daily SES Limit is currently at 80%, review mail send history, continue to monitor and request a limit increase if required.",
+            "sns_arn": "",
+            "metric": {
+                "namespace": "AWS/SES",
+                "name": "Send"
+            }
+        },
+        {
+            "name": "WARNING: Daily SES Complaint Count at 0.1%",
+            "percent": 0.1,
+            "description": "Daily SES Complaint Count is currently at 0.1%, review complaint logs.",
+            "sns_arn": "",
+            "metric": {
+                "namespace": "AWS/SES",
+                "name": "Complaint"
+            }
+        },
+        {
+            "name": "ALERT: Daily SES Complaint Count at 0.5%",
+            "percent": 0.5,
+            "description": "Daily SES Complaint Count is currently at 0.5%, review complaint logs.",
+            "sns_arn": "",
+            "metric": {
+                "namespace": "AWS/SES",
+                "name": "Complaint"
+            }
+        }
+    ]
+}
