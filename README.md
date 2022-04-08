@@ -1,66 +1,25 @@
 ![alt text](https://github.com/SirDanielot/ses-reputation-cdk-stack/blob/master/assets/environment-diagram.png)
 
-# Welcome to your CDK Python project!
+# SES Reuptation CDK Stack
 
-This is a blank project for Python development with CDK.
+If you haven't used or deployed using CDK before, it is worth reading the [Working with the AWS CDK in Python](https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-python.html) documentation.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+This stack will launch CloudWatch Alarms for the following SES Metrics:
+ - Daily SES Send Count (Warning: 60% | Alert: 80%)
+ - Daily SES Bounce Count (Warning: 5% | Alert: 10%)
+ - DAily SES Complaint Count (Warning: 0.1% | Alert 0.5%)
 
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the `.venv`
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
-
-To manually create a virtualenv on MacOS and Linux:
-
-```
-$ python3 -m venv .venv
-```
-
-After the init process completes and the virtualenv is created, you can use the following
-step to activate your virtualenv.
-
-```
-$ source .venv/bin/activate
-```
-
-If you are a Windows platform, you would activate the virtualenv like this:
-
-```
-% .venv\Scripts\activate.bat
-```
-
-Once the virtualenv is activated, you can install the required dependencies.
-
-```
-$ pip install -r requirements.txt
-```
-
-At this point you can now synthesize the CloudFormation template for this code.
-
-```
-$ cdk synth
-```
-
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
-
-## Useful commands
-
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
-
-Enjoy!
+..and also deploy a Lambda function that will integrate with your RDS, to log email sends, bouncebacks and a seperate table to log emails that aren't within the database.
 
 # How to use this Stack?
 
 Update the 'config.json' file and update any missing values.
+
+rds_vpc = The VPC that the RDS is contained in, as the Lambda function will be provisioned in the same VPC. (This CDK could be modified to include VPC peering if required.
+rds_subnet_ids = The subnet(s) the RDS is contained in.
+rds_security_group = Any Security Group ID that is attached to the RDS, to allow for a MySQL connection from Lambda <-> RDS.
+
+For each alarm, you will also need to add in the SNS Topic ARN that you want the alarms to send to.
 
 ```
 {
@@ -78,3 +37,11 @@ Update the 'config.json' file and update any missing values.
     }
    ]
 }
+
+# MySQL Database Structure
+
+The MySQL database structure file has been included in [sql/database.sql](https://github.com/sirdanielot/ses-reputation-cdk-stack/blob/master/sql/database.sql)
+
+Note: You don't neccessarily have to follow this structure, it was just provided as a base example.
+
+If changes are required to integrate with your database, you can modify the Lambda function in [resources](https://github.com/sirdanielot/ses-reputation-cdk-stack/blob/master/resources/lambda_function.py)
