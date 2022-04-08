@@ -4,6 +4,10 @@
 
 If you haven't used or deployed using CDK before, it is worth reading the [Working with the AWS CDK in Python](https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-python.html) documentation.
 
+The purpose of this stack is to add resources to your AWS account to assist with monitoring and logging your SES email sends to ensure your Sender Reputaiton is healthy.
+
+Examples of how this Stack is used can be viewed in this [blog](https://jandeycom.wordpress.com/2022/03/30/aws-ses-email-reputation-health-cloudops-vs-devops/).
+
 This stack will launch CloudWatch Alarms for the following SES Metrics:
  - Daily SES Send Count - (Warning: 60% | Alert: 80%)
  - Daily SES Bounce Count - (Warning: 5% | Alert: 10%)
