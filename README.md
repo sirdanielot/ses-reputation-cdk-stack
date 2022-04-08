@@ -25,6 +25,7 @@ Update the 'config.json' file and update any missing values.
 
 For each alarm, you will also need to add in the SNS Topic ARN that you want the alarms to send to.
 
+[config.json](https://github.com/sirdanielot/ses-reputation-cdk-stack/blob/master/config.json)
 ```json
 {
     "rds_vpc": "",
