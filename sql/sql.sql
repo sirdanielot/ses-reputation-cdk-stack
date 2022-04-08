@@ -1,3 +1,6 @@
+--
+-- Table structure for table `unvalidated_email_log`
+--
 DROP TABLE IF EXISTS `unvalidated_email_log`;
 CREATE TABLE `unvalidated_email_log` (
   `unvalidated_email_id` int NOT NULL AUTO_INCREMENT,
