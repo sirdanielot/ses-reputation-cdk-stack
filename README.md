@@ -27,16 +27,14 @@ For each alarm, you will also need to add in the SNS Topic ARN that you want the
     "rds_subnets_ids": [""],
     "rds_security_group": ""
 }
- ```
- 
- ```
- {
-   "alarms": [
-    {
-      "sns_arn": ""   
-    }
-   ]
+{
+  "alarms": [
+   {
+     "sns_arn": ""   
+   }
+  ]
 }
+```
 
 # MySQL Database Structure
 
